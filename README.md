@@ -1,4 +1,4 @@
-# NoCheats - NeoForge 1.21.11
+# NoCheats - Fabric 1.21.11
 
 ## 功能
 - 禁用 `/give` 指令
@@ -15,7 +15,7 @@
 
 ### 2. 触发编译
 1. 进入仓库的 Actions 页面
-2. 点击 "Build NoCheats Mod"
+2. 点击 "Build NoCheats Mod (Fabric)"
 3. 点击 "Run workflow"
 4. 等待编译完成（约 5-10 分钟）
 
@@ -32,14 +32,9 @@
 gradle build
 ```
 
-或（如果有 gradlew）：
-```bash
-gradlew build
-```
-
 ## PCL2 安装
 
-1. 打开 PCL2 → 选择 **1.21.11 + NeoForge** 版本
+1. 打开 PCL2 → 选择 **1.21.11 + Fabric** 版本
 2. 点击「版本设置」→「Mod 管理」→「打开 Mod 文件夹」
 3. 将编译好的 `nocheats-1.0.0.jar` 拖入
 4. 启动游戏，创建局域网世界

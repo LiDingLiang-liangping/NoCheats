@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "nocheats",
+  "version": "${version}",
+  "name": "NoCheats",
+  "description": "禁用创造模式和give指令，允许旁观模式。仅局域网主机有效。",
+  "authors": [
+    "YourName"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+  "license": "MIT",
+  "icon": "assets/nocheats/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.example.nocheats.NoCheatsMod"
+    ]
+  },
+  "mixins": [
+    "nocheats.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

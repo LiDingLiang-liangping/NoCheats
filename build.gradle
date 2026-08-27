@@ -1,16 +1,14 @@
 plugins {
-    id 'java-library'
+    id 'fabric-loom' version '1.7-SNAPSHOT'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '1.0.23'
+    id 'java'
 }
 
 group = 'com.example'
 version = '1.0.0'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+base {
+    archivesName = 'nocheats'
 }
 
 repositories {
@@ -18,42 +16,44 @@ repositories {
     mavenCentral()
     maven { url = "https://bmclapi2.bangbang93.com/maven" }
     maven { url = "https://mirrors.cloud.tencent.com/nexus/repository/maven-public/" }
-    maven { url = "https://maven.neoforged.net/releases" }
+    maven { url = "https://maven.fabricmc.net/" }
+    maven { url = "https://libraries.minecraft.net/" }
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:21.11.0"
-}
+    minecraft "com.mojang:minecraft:1.21.11"
+    mappings "net.fabricmc:yarn:1.21.11+build.1:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.16.10"
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-}
+    // Fabric API
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.119.5+1.21.11"
 
-neoForge {
-    version = "21.11.42"
-
-    runs {
-        client {
-            client()
-        }
-        server {
-            server()
-        }
-    }
-
-    mods {
-        nocheats {
-            sourceSet(sourceSets.main)
-        }
-    }
+    // Mixin
+    include "org.spongepowered:mixin:0.8.7"
 }
 
 processResources {
-    def replaceProperties = [
-        version: version,
-    ]
-    inputs.properties replaceProperties
-    filesMatching("META-INF/neoforge.mods.toml") {
-        expand replaceProperties
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 21
+    options.encoding = 'UTF-8'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesName}"}
     }
 }
